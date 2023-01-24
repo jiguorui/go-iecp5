@@ -107,6 +107,7 @@ func (sf *Server) ListenAndServer(addr string) {
 				connectionLost: sf.connectionLost,
 				Clog:           sf.Clog,
 			}
+			////fmt.Println(len())
 			sf.mux.Lock()
 			sf.sessions[sess] = struct{}{}
 			sf.mux.Unlock()

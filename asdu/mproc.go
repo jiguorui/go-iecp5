@@ -116,6 +116,15 @@ func Single(c Connect, isSequence bool, coa CauseOfTransmission, ca CommonAddr, 
 	return single(c, M_SP_NA_1, isSequence, coa, ca, infos...)
 }
 
+func Single2(c Connect, isSequence bool, coa CauseOfTransmission, ca CommonAddr, infos ...SinglePointInfo) error {
+	if !(coa.Cause == Background || coa.Cause == Spontaneous || coa.Cause == Request ||
+		coa.Cause == ReturnInfoRemote || coa.Cause == ReturnInfoLocal ||
+		(coa.Cause >= InterrogatedByStation && coa.Cause <= InterrogatedByGroup16)) {
+		return ErrCmdCause
+	}
+	return single(c, M_SP_TB_1, isSequence, coa, ca, infos...)
+}
+
 // SingleCP24Time2a sends a type identification [M_SP_TA_1],带时标CP24Time2a的单点信息，只有(SQ = 0)单个信息元素集合
 // [M_SP_TA_1] See companion standard 101,subclass 7.3.1.2
 // 传送原因(coa)用于
@@ -750,6 +759,15 @@ func MeasuredValueFloat(c Connect, isSequence bool, coa CauseOfTransmission, ca 
 		return ErrCmdCause
 	}
 	return measuredValueFloat(c, M_ME_NC_1, isSequence, coa, ca, infos...)
+}
+
+func MeasuredValueFloat2(c Connect, isSequence bool, coa CauseOfTransmission, ca CommonAddr, infos ...MeasuredValueFloatInfo) error {
+	if !(coa.Cause == Periodic || coa.Cause == Background ||
+		coa.Cause == Spontaneous || coa.Cause == Request ||
+		(coa.Cause >= InterrogatedByStation && coa.Cause <= InterrogatedByGroup16)) {
+		return ErrCmdCause
+	}
+	return measuredValueFloat(c, M_ME_TF_1, isSequence, coa, ca, infos...)
 }
 
 // MeasuredValueFloatCP24Time2a sends a type identification [M_ME_TC_1].带时标CP24Time2a的测量值,短浮点数,只有(SQ = 0)单个信息元素集合

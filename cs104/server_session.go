@@ -246,7 +246,7 @@ func (sf *SrvSession) run(ctx context.Context) {
 				now.Sub(sf.pending[0].sendTime) >= sf.config.SendUnAckTimeout1 {
 				sf.ackNoSend++
 				sf.Error("fatal transmission timeout t₁")
-				return
+				//return
 			}
 
 			// 确定最早发送的i-Frame是否超时,超时则回复sFrame
