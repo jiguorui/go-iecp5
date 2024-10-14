@@ -175,6 +175,8 @@ func (sf *ASDU) SendReplyMirror(c Connect, cause Cause) error {
 	r.infoObj = append(r.infoObj, sf.infoObj...)
 	b := r.infoObj[len(r.infoObj)-1]
 	r.infoObj[len(r.infoObj)-1] = 0
+
+	
 	r.infoObj = append(r.infoObj, 0, 0, b)
 	return c.Send(r)
 }
