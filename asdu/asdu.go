@@ -174,7 +174,7 @@ func (sf *ASDU) SendReplyMirror(c Connect, cause Cause) error {
 	r.Coa.Cause = cause
 	r.infoObj = append(r.infoObj, sf.infoObj...)
 	b := r.infoObj[-1]
-	r.infoObj[-1] = 0;
+	r.infoObj[-1] = 0
 	r.infoObj[-1] = append(r.infoObj, [0, 0, b])
 	return c.Send(r)
 }
